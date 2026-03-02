@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map Poster</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="poster-container">
+        <div id="map"></div>
+        <div class="shader top"></div>
+        <div class="shader bottom"></div>
+        
+        <div id="overlay-bottom">
+            <h1 id="city-name">TUNIS  AREA</h1>
+            <div class="divider"></div>
+            <h2 id="country-name">TUNISIA</h2>
+            <div id="coordinates">36.8070° N / 10.1260° E</div>
+            <div id="attribution">© OpenStreetMap contributors</div>
+        </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "arabic-landing-page",
+  "version": "1.0.0",
+  "description": "A landing page for the app presented in Arabic.",
+  "main": "src/js/main.js",
+  "scripts": {
+    "start": "live-server public",
+    "build": "echo 'Build step can be added here'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "landing",
+    "page",
+    "arabic",
+    "localization"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  },
+  "devDependencies": {},
+  "homepage": "https://yourhomepage.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/arabic-landing-page.git"
+  }
+}

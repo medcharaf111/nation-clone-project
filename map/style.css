@@ -1,0 +1,134 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+:root {
+    --bg-color: #FFFFFF;
+    --text-color: #000000;
+    --water-color: #B0B0B0;
+    --park-color: #ECECEC;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg-color);
+    font-family: 'Roboto', sans-serif;
+}
+
+#poster-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.shader {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 25%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.shader.top {
+    top: 0;
+    background: linear-gradient(to bottom, var(--bg-color) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.shader.bottom {
+    bottom: 0;
+    background: linear-gradient(to top, var(--bg-color) 30%, rgba(255, 255, 255, 0) 100%);
+}
+
+#overlay-bottom {
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+    text-align: center;
+    z-index: 3;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#city-name {
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 0.8rem;
+    margin: 0;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+
+.divider {
+    width: 10%;
+    height: 1px;
+    background-color: var(--text-color);
+    margin: 1rem 0;
+}
+
+#country-name {
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.3rem;
+    margin: 0;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+
+#coordinates {
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-top: 1rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+#attribution {
+    position: absolute;
+    bottom: -2rem;
+    right: 1rem;
+    font-size: 0.5rem;
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+/* Hide MapLibre UI */
+.maplibregl-ctrl {
+    display: none !important;
+}
