@@ -5,20 +5,36 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { FileText, CheckCircle2, Shield, Sparkles, Languages } from "lucide-react";
+import { FileText, CheckCircle2, Shield, Sparkles, Languages, Loader2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const TermsAgreement = () => {
   const [agreed, setAgreed] = useState(false);
   const [fullName, setFullName] = useState("");
   const [university, setUniversity] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [lang, setLang] = useState<"en" | "ar">("en");
   const isAr = lang === "ar";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!agreed || !fullName.trim() || !university.trim()) return;
-    // TODO: Save to DB
+    setLoading(true);
+    setError(null);
+    const { error: dbError } = await supabase
+      .from("signatures")
+      .insert({
+        full_name: fullName.trim(),
+        university: university.trim(),
+        signed_at: new Date().toISOString(),
+      });
+    setLoading(false);
+    if (dbError) {
+      setError(isAr ? "حدث خطأ أثناء الحفظ. يرجى المحاولة مجدداً." : "An error occurred while saving. Please try again.");
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -378,13 +394,23 @@ const TermsAgreement = () => {
             </Label>
           </div>
 
+          {error && (
+            <p className="text-sm text-red-500 text-center">{error}</p>
+          )}
+
           <Button
             type="submit"
-            disabled={!agreed || !fullName.trim() || !university.trim()}
+            disabled={!agreed || !fullName.trim() || !university.trim() || loading}
             className="w-full h-12 rounded-xl text-base font-semibold bg-gradient-to-r from-primary to-violet-600 hover:from-primary/90 hover:to-violet-600/90 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300 disabled:opacity-40 disabled:shadow-none"
           >
-            <CheckCircle2 className={`w-5 h-5 ${isAr ? "ml-2" : "mr-2"}`} />
-            {isAr ? "توقيع الاتفاقية" : "Sign Agreement"}
+            {loading ? (
+              <Loader2 className={`w-5 h-5 animate-spin ${isAr ? "ml-2" : "mr-2"}`} />
+            ) : (
+              <CheckCircle2 className={`w-5 h-5 ${isAr ? "ml-2" : "mr-2"}`} />
+            )}
+            {loading
+              ? (isAr ? "جارٍ الحفظ…" : "Saving…")
+              : (isAr ? "توقيع الاتفاقية" : "Sign Agreement")}
           </Button>
         </CardContent>
       </Card>
